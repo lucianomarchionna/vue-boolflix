@@ -1,31 +1,21 @@
 <template>
     <main>
-        <Film/>
+        <h2>FILM</h2>
+        <div class="container">
+            <div v-for="(film, index) in films" :key="index" class="filmSelected">
+                <Film :key="index"  :filmSelected="film" />
+            </div>
+        </div>
     </main>
 </template>
 
 <script>
-import axios from "axios"
 import Film from "./Film.vue"
 export default {
     name: 'Main',
+    props: ["films"],
     components:{
         Film,
-    },
-    data(){
-        return{
-            films: [],
-            APIUrl: "https://api.themoviedb.org/3/movie/550?api_key=4c19bac9940068072a0fc53f656cdaac",
-        }
-    },
-    methods(){
-        axios.get(this.APIUrl)
-        .then((res) =>{
-            this.films = res.data.response;
-        })
-        .catch((error) =>{
-            console.log(error);
-        });
     },
 }
 </script>
@@ -38,5 +28,18 @@ main{
     height: 100%;
     min-height: 92vh;
     background-color: $secondary-color;
+
+    h2{
+        color: red;
+    }
+
+    .container{
+        width: 90%;
+        height: 100%;
+        margin: 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
 }
 </style>
